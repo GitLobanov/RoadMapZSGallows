@@ -7,16 +7,18 @@ public class GameSession extends Thread {
 
     private GameStatus gameStatus = GameStatus.WAIT;
     private final ReadDictionary readDictionary = new ReadDictionary();
+    private HangMan hangMan = new HangMan();
     private String hiddenWord = "";
     private String guessWord = "";
     private List<String> guessChars = new ArrayList<String>();
     private List<String> guessFail = new ArrayList<String>();
     private int countLose = 0;
-    private final int countCanLose = 10;
+    private final int countCanLose = 6;
 
     @Override
     public void run() {
         // logic of game here
+
 
         List<String> listDictionary = readDictionary.getDictionary();
         System.out.println("Добро пожаловать в игру виселица!");
@@ -59,15 +61,17 @@ public class GameSession extends Thread {
                     }
                 } else {
                     countLose++;
+                    hangMan.makeMistake(countLose);
                     guessFail.add(inLetter);
                     System.out.println("Буквы в слове нету!");
                     System.out.println("Счет неправильных ответов: " + countLose);
+                    hangMan.printResult();
+
                     if (countCanLose == countLose) {
                         gameStatus = GameStatus.LOSE;
                     }
                 }
 
-                System.out.println("------------------------");
                 System.out.println("Угаданное: "  + guessWord);
                 System.out.println("Неправильные буквы: ");
                 guessFail.forEach(System.out::print);
@@ -103,6 +107,7 @@ public class GameSession extends Thread {
         if (gameStatus == GameStatus.WIN) System.out.println("победили");
         System.out.println("Попыток использовано: " + countLose);
         System.out.println("Загаданное слово: " + hiddenWord);
+        hangMan.printResult();
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Начать новую игру? (да/нет)");
