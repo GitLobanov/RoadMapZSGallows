@@ -1,8 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ReadDictionary {
 
@@ -11,15 +14,12 @@ public class ReadDictionary {
     public ReadDictionary () {
 
         try {
-            FileReader reader = new FileReader("./resources/RUS.txt");
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String word = bufferedReader.readLine();
-            listDictionary.add(word);
+            Scanner scanner = new Scanner(Paths.get("resources","RUS.txt").toFile());
 
-            while (word!=null){
-                word = bufferedReader.readLine();
+            do {
+                String word = scanner.nextLine();
                 listDictionary.add(word);
-            }
+            } while (scanner.hasNext());
 
         } catch (IOException e) {
             throw new RuntimeException(e);
