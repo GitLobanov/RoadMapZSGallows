@@ -1,7 +1,13 @@
 public class Main {
-    private static GameSession gameSession = new GameSession();
 
     public static void main(String[] args) {
-        gameSession.start();
+        Dictionary dictionary = new Dictionary();
+
+        // game logic
+        while (true) {
+            Game game = new Game();
+            game.run(dictionary);
+        }
+
     }
 }

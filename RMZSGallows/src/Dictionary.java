@@ -1,17 +1,15 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
-public class ReadDictionary {
+public class Dictionary {
 
     private final List<String> listDictionary = new ArrayList<>();
 
-    public ReadDictionary () {
+    public Dictionary() {
 
         try {
             Scanner scanner = new Scanner(Paths.get("resources","RUS.txt").toFile());
@@ -29,5 +27,10 @@ public class ReadDictionary {
 
     public List <String> getDictionary () {
         return  listDictionary;
+    }
+
+    public String getMaskedWord () {
+        Random r = new Random();
+        return listDictionary.get(r.nextInt(0,listDictionary.size()-1));
     }
 }
